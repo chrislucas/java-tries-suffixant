@@ -37,6 +37,7 @@ public class Contacts {
         public Node(char c) {
             this();
             this.c = c;
+            this.quantity = 1;
         }
     }
 
@@ -49,6 +50,9 @@ public class Contacts {
             int index = alpha.get(c);
             if(node.children[index] == null) {
                 node.children[index] = new Node(str.charAt(i));
+            }
+            else {
+                node.children[index].quantity++;
             }
             node = node.children[index];
         }
@@ -80,18 +84,16 @@ public class Contacts {
         return searchNode(str) != null;
     }
 
-    public static int searchPrefix2(String str) {
+    public static int countPrefixes(String str) {
         Node node = root;
-        int ans = 0;
         int limit = str.length() - 1;
         for(int i=0; i<=limit; i++) {
             int index = alpha.get(str.charAt(i));
             if(node.children[index] == null)
                 return 0;
             node = node.children[index];
-            ans++;
         }
-        return ans;
+        return node.quantity;
     }
 
     private static void test() {
@@ -102,13 +104,12 @@ public class Contacts {
         insert("Amora");
         insert("Bruna");
         insert("Brenda");
-        String [] strs = { "Amanda", "Bruna", "Natalia"
-                , "marina", "amara", "manoela", "manoel", "Amara"};
+        //String [] strs = { "Amanda", "Bruna", "Natalia", "marina", "amara", "manoela", "manoel", "Amara"};
         /*
         for(String str : strs)
             System.out.println(search(str) ? " Existe" : String.format("%s Não existe", str));
         */
-        strs = new String [] {"Ma", "Br"};
+        String []  strs = new String [] {"Ma", "Br"};
         for(String str : strs)
             searchPrefix(str);
     }
@@ -123,7 +124,7 @@ public class Contacts {
                 if(action.equals("add"))
                     insert(name);
                 else
-                    writer.printf("%d\n", searchPrefix2(name));
+                    writer.printf("%d\n", countPrefixes(name));
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
