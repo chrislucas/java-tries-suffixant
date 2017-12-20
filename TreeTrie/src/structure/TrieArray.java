@@ -67,7 +67,7 @@ public class TrieArray {
         return trieNode != null && trieNode.isLeaf;
     }
 
-    public boolean searchPreffix(String str) {
+    public boolean searchPrefix(String str) {
         return searchNode(str) != null;
     }
 
@@ -86,7 +86,7 @@ public class TrieArray {
         strs = new String [] {"Ma", "Let", "Maria", "Marcos"};
         for(String str : strs) {
             System.out.printf( "Prefixo: %s - %s\n"
-                    , str, trieArray.searchPreffix(str) ? "Encontrado" : "Não encontrado");
+                    , str, trieArray.searchPrefix(str) ? "Encontrado" : "Não encontrado");
         }
     }
 

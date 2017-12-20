@@ -55,6 +55,8 @@ public class ImplTrie {
                 node = children.get(c);
                 children = node.children;
             }
+            else
+                return null;
         }
         System.out.println("");
         return node;
