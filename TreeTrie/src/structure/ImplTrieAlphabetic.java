@@ -7,11 +7,10 @@ import java.util.Hashtable;
  * */
 public class ImplTrieAlphabetic {
 
-    private static final String ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-            .concat("ABCDEFGHIJKLMNOPQRSTUVWXYZ".toLowerCase());
+    private static final String ALPHA = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".concat("ABCDEFGHIJKLMNOPQRSTUVWXYZ".toLowerCase());
     public static class TrieNode {
         public static final int CAP = ALPHA.length();
-        private TrieNode [] children;
+        private TrieNode [] prefix;
         private char c;
         private boolean isLeaf;
         public TrieNode(char c) {
@@ -19,10 +18,10 @@ public class ImplTrieAlphabetic {
             this.c = c;
         }
         public TrieNode() {
-            this.children = new TrieNode[CAP];
+            this.prefix = new TrieNode[CAP];
             this.isLeaf = false;
             for(int i=0; i<CAP; i++)
-                children[i] = null;
+                prefix[i] = null;
         }
     }
     private static TrieNode root = new TrieNode();
@@ -38,9 +37,9 @@ public class ImplTrieAlphabetic {
         TrieNode trieNode = root;
         for(int level=0; level<len; level++) {
             index = alpha.get(str.charAt(level));
-            if(trieNode.children[index] == null)
-                trieNode.children[index] = new TrieNode(str.charAt(level));
-            trieNode = trieNode.children[index];
+            if(trieNode.prefix[index] == null)
+                trieNode.prefix[index] = new TrieNode(str.charAt(level));
+            trieNode = trieNode.prefix[index];
         }
         trieNode.isLeaf = true;
     }
@@ -50,11 +49,11 @@ public class ImplTrieAlphabetic {
         TrieNode trieNode = root;
         for (int level = 0; level <=len; level++) {
             int index =  alpha.get(str.charAt(level) );
-            if(trieNode.children[index] == null)
+            if(trieNode.prefix[index] == null)
                 return null;
             if(level == len)
-                System.out.printf("Quantidade de sufixxos %d\n", trieNode.children.length);
-            trieNode = trieNode.children[index];
+                System.out.printf("Quantidade de sufixos %d\n", trieNode.prefix.length);
+            trieNode = trieNode.prefix[index];
             System.out.printf("%c ", trieNode.c);
         }
         return trieNode;

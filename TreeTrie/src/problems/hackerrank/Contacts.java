@@ -1,4 +1,4 @@
-package problems;
+package problems.hackerrank;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -9,6 +9,7 @@ import java.util.StringTokenizer;
 
 /**
  * https://www.hackerrank.com/challenges/ctci-contacts/problem
+ * DONE
  * */
 
 public class Contacts {
