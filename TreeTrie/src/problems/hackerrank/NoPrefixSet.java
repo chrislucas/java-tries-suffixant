@@ -1,17 +1,12 @@
 package problems.hackerrank;
 
-
-import structure.ImplTrie;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * https://www.hackerrank.com/challenges/no-prefix-set/problem
+ * DONE
  * */
 
 public class NoPrefixSet {
@@ -102,20 +97,40 @@ public class NoPrefixSet {
         }
 
         if(flag) {
-            System.out.println("BAD SET");
-            System.out.println(word);
+            writer.println("BAD SET");
+            writer.println(word);
         }
         else {
-            System.out.println("GOOD SET");
+            writer.println("GOOD SET");
         }
     }
 
 
     private static void solver() {
-
+        try {
+            int cases = Integer.parseInt(reader.readLine());
+            boolean flagInsert = false;
+            String word = "";
+            for (int i = 0; i < cases ; i++) {
+                String in = reader.readLine();
+                if(!flagInsert) {
+                    flagInsert = insertWord(in);
+                    if(flagInsert) {
+                        word = in;
+                    }
+                }
+            }
+            if(flagInsert) {
+                writer.println("BAD SET");
+                writer.println(word);
+            }
+            else {
+                writer.println("GOOD SET");
+            }
+        } catch (IOException ioex) { }
     }
 
     public static void main(String[] args) {
-        test();
+        solver();
     }
 }

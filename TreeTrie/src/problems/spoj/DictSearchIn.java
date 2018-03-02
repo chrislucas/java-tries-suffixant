@@ -5,6 +5,10 @@ import java.util.*;
 
 /**
  * http://www.spoj.com/problems/DICT/
+ * TLE - 02-03-2018
+ *
+ * Ferramenta interessante http://spojtoolkit.com/test/DICT
+ *
  * */
 
 public class DictSearchIn {
@@ -15,7 +19,7 @@ public class DictSearchIn {
     static class TrieNode {
         private char c;
         private boolean isLeaf;
-        private HashMap<Character, TrieNode> prefixes = new HashMap<>();
+        private TreeMap<Character, TrieNode> prefixes = new TreeMap<>();
         private TrieNode() {}
         private TrieNode(char c) {
             this();
@@ -28,7 +32,7 @@ public class DictSearchIn {
     private static TrieNode rootPrefixTrie = new TrieNode();
 
     private static void insert(String word) {
-        HashMap<Character, TrieNode> prefix = rootPrefixTrie.prefixes;
+        TreeMap<Character, TrieNode> prefix = rootPrefixTrie.prefixes;
         for (int i = 0; i < word.length() ; i++) {
             TrieNode node;
             char c = word.charAt(i);
@@ -90,24 +94,26 @@ public class DictSearchIn {
         }
     }
 
-
     private static void test() {
         String [][] words = {
             {"set", "setter", "lol", "setting", "settings"}
+            ,{"a", "b", "c"}
         };
         int idx = 0;
         for(String str : words[idx])
             insert(str);
 
-        String [][] pre = {{"s", "set", "happy", "sett"}};
+        String [][] pre = {
+            {"set", "s", "set", "happy", "sett"}
+            ,{"a"}
+        };
 
         for(String str : pre[idx]) {
             System.out.printf("Prefixo: %s\n", str);
             List<String> wordsWithPrefix = searchWordsWithPrefix(str);
             if(wordsWithPrefix != null && wordsWithPrefix.size() > 0) {
+                wordsWithPrefix.remove(str);
                 for(String word : wordsWithPrefix) {
-                    if(word.equals(str))
-                        continue;
                     writer.printf("%s\n", word);
                 }
             }
@@ -130,9 +136,8 @@ public class DictSearchIn {
                 String prefix = reader.readLine().trim();
                 List<String> wordsWithPrefix = searchWordsWithPrefix(prefix);
                 if(wordsWithPrefix != null && wordsWithPrefix.size() > 0) {
+                    wordsWithPrefix.remove(prefix);
                     for(String word : wordsWithPrefix) {
-                        if(word.equals(prefix))
-                            continue;
                         writer.printf("%s\n", word);
                     }
                 }
